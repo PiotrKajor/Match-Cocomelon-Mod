@@ -1,0 +1,24 @@
+============================================================
+  MOD "widzisz mnie?" do MECCHA CHAMELEON
+  - gwizd -> "widzisz mnie?"
+  - obrazy i plakaty na scianach podmienione
+============================================================
+
+INSTALACJA
+  1. Rozpakuj CALY ZIP do jednego folderu (musi zostac folder "mod" obok exe).
+  2. Uruchom Zainstaluj.exe -> Zainstaluj.
+  3. Sam znajdzie gre przez Steam i wgra mod.
+  4. Uruchom gre (jak byla wlaczona - zrestartuj).
+
+  SmartScreen: jesli Windows pokaze "ochronil komputer" ->
+  "Wiecej informacji" -> "Uruchom mimo to" (exe nie jest podpisany).
+
+ODINSTALOWANIE
+  Zainstaluj.exe -> Odinstaluj.
+
+INSTALACJA RECZNA
+  Skopiuj pliki z folderu "mod" (*_P.utoc/.ucas/.pak) do:
+  ...\steamapps\common\MECCHA CHAMELEON\Chameleon\Content\Paks\
+
+Wymagana ta sama wersja gry na Steam. Mod fanowski, kosmetyczny.
+============================================================
