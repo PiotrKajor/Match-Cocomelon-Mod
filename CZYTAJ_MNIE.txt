@@ -1,23 +1,29 @@
 ============================================================
-  MOD "widzisz mnie?" do MECCHA CHAMELEON
-  Zmienia dzwiek gwizdu na "widzisz mnie?"
+   MOD do MECCHA CHAMELEON
+   (zmienia dzwiek gwizdu na "widzisz mnie?")
 ============================================================
 
-INSTALACJA
-  1. Rozpakuj CALY ZIP do jednego folderu (musi zostac folder "mod" obok exe).
-  2. Uruchom Zainstaluj.exe -> Zainstaluj.
-  3. Sam znajdzie gre przez Steam i wgra mod.
-  4. Uruchom gre (jak byla wlaczona - zrestartuj).
+  JAK ZAINSTALOWAC - 3 KROKI:
 
-  SmartScreen: jesli Windows pokaze "ochronil komputer" ->
-  "Wiecej informacji" -> "Uruchom mimo to" (exe nie jest podpisany).
+  1) WYPAKUJ CALY ten ZIP do jednego folderu (np. na Pulpit).
+     >> NIE uruchamiaj exe z wnetrza ZIP-a! Najpierw wypakuj.
+     >> Obok Zainstaluj.exe MUSI byc folder "mod".
 
-ODINSTALOWANIE
-  Zainstaluj.exe -> Odinstaluj.
+  2) Kliknij dwa razy:  Zainstaluj.exe   ->   przycisk ZAINSTALUJ
 
-INSTALACJA RECZNA
-  Skopiuj pliki z folderu "mod" (*_P.utoc/.ucas/.pak) do:
-  ...\steamapps\common\MECCHA CHAMELEON\Chameleon\Content\Paks\
+  3) Gdy wyskoczy zielone "ZAINSTALOWANO POMYSLNIE" -> odpal gre. Gotowe!
 
-Wymagana ta sama wersja gry na Steam. Mod fanowski, kosmetyczny.
+------------------------------------------------------------
+  WINDOWS POKAZAL "OCHRONIL KOMPUTER"?
+  To normalne (mod niepodpisany). Kliknij:
+     "Wiecej informacji"  ->  "Uruchom mimo to"
+------------------------------------------------------------
+  ODINSTALOWANIE:
+     Zainstaluj.exe  ->  przycisk ODINSTALUJ
+------------------------------------------------------------
+  NIC SIE NIE ZMIENILO W GRZE?
+     Zamknij gre CALKOWICIE i odpal od nowa.
+  "NIE ZNALAZLEM GRY"?
+     Kliknij Przegladaj i wskaz folder gry
+     (Steam -> prawy klik na gre -> Zarzadzaj -> Przegladaj pliki lokalne)
 ============================================================
