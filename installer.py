@@ -28,6 +28,13 @@ import platform
 
 IS_WINDOWS = os.name == "nt"
 
+# Znaki blokowe (█) wymagaja UTF-8 na stdout - inaczej stara konsola Windows
+# (cp1250) rzucilaby UnicodeEncodeError. errors="replace" = degradacja zamiast crasha.
+try:
+    sys.stdout.reconfigure(encoding="utf-8", errors="replace")
+except Exception:
+    pass
+
 
 def _enable_ansi_on_windows():
     """Wlacza obsluge sekwencji ANSI w konsoli Windows 10/11."""
@@ -83,22 +90,28 @@ WIDTH = 64  # szerokosc ramki interfejsu
 #  Rysowanie interfejsu
 # --------------------------------------------------------------------------- #
 
-# Wielkie napisy w stylu blokowym (OK / ERROR), 5-liniowe, monospaced.
-_BIG_OK = [
-    "  ___  _  __",
-    " / _ \\| |/ /",
-    "| | | | ' / ",
-    "| |_| | . \\ ",
-    " \\___/|_|\\_\\",
-]
+# Pikselowa czcionka blokowa - wielkie napisy jak na ekranie testu pamieci.
+# Glify 5x7; '#' = piksel wlaczony. Renderowane pelnymi blokami (██).
+_FONT = {
+    "O": [" ### ", "#   #", "#   #", "#   #", "#   #", "#   #", " ### "],
+    "K": ["#   #", "#  # ", "# #  ", "##   ", "# #  ", "#  # ", "#   #"],
+    "E": ["#####", "#    ", "#    ", "#### ", "#    ", "#    ", "#####"],
+    "R": ["#### ", "#   #", "#   #", "#### ", "# #  ", "#  # ", "#   #"],
+}
+_FONT_ROWS = 7
 
-_BIG_ERROR = [
-    " _____ ____  ____   ___  ____  ",
-    "| ____|  _ \\|  _ \\ / _ \\|  _ \\ ",
-    "|  _| | |_) | |_) | | | | |_) |",
-    "| |___|  _ <|  _ <| |_| |  _ < ",
-    "|_____|_| \\_\\_| \\_\\\\___/|_| \\_\\",
-]
+
+def _render_word(word, on="██", off="  ", gap="  "):
+    """Sklada wyraz z pikselowych glifow w liste 7 wierszy (poziomo x2)."""
+    rows = []
+    for r in range(_FONT_ROWS):
+        parts = ["".join(on if c == "#" else off for c in _FONT[ch][r]) for ch in word]
+        rows.append(gap.join(parts))
+    return rows
+
+
+_BIG_OK = _render_word("OK")
+_BIG_ERROR = _render_word("ERROR")
 
 
 def clear_screen():
@@ -130,19 +143,24 @@ def info_row(label, value, ok=None):
 
 
 def big_box(lines, color, subtitle):
-    """Wielka ramka z napisem OK/ERROR na srodku ekranu."""
-    inner_w = max(max(len(l) for l in lines), len(subtitle)) + 8
-    pad = " " * inner_w
+    """Wielka ramka z napisem OK/ERROR wysrodkowana na ekranie terminala."""
+    term_w = shutil.get_terminal_size((WIDTH + 6, 24)).columns
+    content_w = max(max(len(l) for l in lines), len(subtitle))
+    inner_w = content_w + 6
+    box_w = inner_w + 2
+    margin = " " * max(0, (term_w - box_w) // 2)
+
     border = color + "+" + "-" * inner_w + "+" + C.RESET
+    blank = color + "|" + " " * inner_w + "|" + C.RESET
+
     print()
-    print("   " + border)
-    print("   " + color + "|" + pad + "|" + C.RESET)
+    print(margin + border)
+    print(margin + blank)
     for l in lines:
-        centered = l.center(inner_w)
-        print("   " + color + "|" + C.BOLD + centered + C.RESET + color + "|" + C.RESET)
-    print("   " + color + "|" + pad + "|" + C.RESET)
-    print("   " + color + "|" + C.RESET + subtitle.center(inner_w) + color + "|" + C.RESET)
-    print("   " + border)
+        print(margin + color + "|" + C.BOLD + l.center(inner_w) + C.RESET + color + "|" + C.RESET)
+    print(margin + blank)
+    print(margin + color + "|" + C.RESET + subtitle.center(inner_w) + color + "|" + C.RESET)
+    print(margin + border)
     print()
 
 
