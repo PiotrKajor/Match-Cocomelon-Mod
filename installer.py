@@ -143,24 +143,29 @@ def info_row(label, value, ok=None):
 
 
 def big_box(lines, color, subtitle):
-    """Wielka ramka z napisem OK/ERROR wysrodkowana na ekranie terminala."""
+    """Pikselowa ramka (z blokow) z napisem OK/ERROR, wysrodkowana na ekranie."""
     term_w = shutil.get_terminal_size((WIDTH + 6, 24)).columns
     content_w = max(max(len(l) for l in lines), len(subtitle))
     inner_w = content_w + 6
-    box_w = inner_w + 2
+    side = "██"  # pionowa krawedz ramki, grubosc dopasowana do pikseli liter
+    box_w = inner_w + 2 * len(side)
     margin = " " * max(0, (term_w - box_w) // 2)
 
-    border = color + "+" + "-" * inner_w + "+" + C.RESET
-    blank = color + "|" + " " * inner_w + "|" + C.RESET
+    top = color + "█" * box_w + C.RESET
+    blank = color + side + " " * inner_w + side + C.RESET
+
+    def framed(inner):
+        # tresc miedzy pionowymi krawedziami ramki
+        print(margin + color + side + C.RESET + inner + color + side + C.RESET)
 
     print()
-    print(margin + border)
+    print(margin + top)
     print(margin + blank)
     for l in lines:
-        print(margin + color + "|" + C.BOLD + l.center(inner_w) + C.RESET + color + "|" + C.RESET)
+        framed(color + C.BOLD + l.center(inner_w) + C.RESET)
     print(margin + blank)
-    print(margin + color + "|" + C.RESET + subtitle.center(inner_w) + color + "|" + C.RESET)
-    print(margin + border)
+    framed(subtitle.center(inner_w))
+    print(margin + top)
     print()
 
 
